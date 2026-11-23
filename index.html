@@ -3,29 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jaqive Art Website</title>
+    <title>Galeri Seni Digital</title>
     <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 60px;
-            background-color: #f4f6f8;
-            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #f0f0f0;
+            line-height: 1.6;
         }
-        .kartu {
-            background: white;
-            max-width: 500px;
-            margin: auto;
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: #1a1a1a;
+            border-bottom: 1px solid #2c2c2c;
+        }
+        header h1 {
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        header p { color: #aaaaaa; max-width: 600px; margin: auto; }
+        
+        /* Tata Letak Grid Galeri */
+        .galeri {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .karya {
+            background: #1e1e1e;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .karya:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+        .karya img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            display: block;
+        }
+        .info { padding: 16px; }
+        .info h3 { font-size: 1.1rem; margin-bottom: 4px; }
+        .info p { font-size: 0.9rem; color: #999999; }
+
+        /* Lightbox (Tampilan Layar Penuh saat Diklik) */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 4px;
+        }
+        .lightbox p { margin-top: 15px; font-size: 1.1rem; color: #ddd; }
+        .tutup {
+            position: absolute;
+            top: 20px; right: 35px;
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+        }
+        footer {
+            text-align: center;
             padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            color: #777;
+            font-size: 0.85rem;
+            border-top: 1px solid #2c2c2c;
         }
     </style>
 </head>
 <body>
-    <div class="kartu">
-        <h1>Halo, Selamat Datang!</h1>
-        <p>Ini adalah website pertama saya yang di-hosting gratis menggunakan GitHub Pages.</p>
+
+    <header>
+        <h1>Studio & Galeri Seni</h1>
+        <p>Koleksi karya lukisan, ilustrasi digital, dan fotografi pilihan.</p>
+    </header>
+
+    <main class="galeri">
+        <!-- Karya 1 -->
+        <div class="karya" onclick="bukaLightbox(this)">
+            <img src="https://picsum.photos" alt="Lembah Senja">
+            <div class="info">
+                <h3>Lembah Senja</h3>
+                <p>Cat Minyak di atas Kanvas • 2025</p>
+            </div>
+        </div>
+
+        <!-- Karya 2 -->
+        <div class="karya" onclick="bukaLightbox(this)">
+            <img src="https://picsum.photos" alt="Kabut Pegunungan">
+            <div class="info">
+                <h3>Kabut Pegunungan</h3>
+                <p>Ilustrasi Digital • 2026</p>
+            </div>
+        </div>
+
+        <!-- Karya 3 -->
+        <div class="karya" onclick="bukaLightbox(this)">
+            <img src="https://picsum.photos" alt="Monokrom Musim Dingin">
+            <div class="info">
+                <h3>Monokrom Musim Dingin</h3>
+                <p>Fotografi Fine Art • 2026</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Popup Lightbox -->
+    <div id="lightbox" class="lightbox" onclick="tutupLightbox()">
+        <span class="tutup">&times;</span>
+        <img id="lightbox-img" src="" alt="">
+        <p id="lightbox-caption"></p>
     </div>
+
+    <footer>
+        &copy; 2026 Nama Seniman / Studio Anda. Hak Cipta Dilindungi.
+    </footer>
+
+    <script>
+        function bukaLightbox(elemen) {
+            const img = elemen.querySelector('img');
+            const judul = elemen.querySelector('h3').innerText;
+            const detail = elemen.querySelector('p').innerText;
+            
+            document.getElementById('lightbox-img').src = img.src;
+            document.getElementById('lightbox-caption').innerText = judul + " — " + detail;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+        function tutupLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+    </script>
+
 </body>
 </html>
